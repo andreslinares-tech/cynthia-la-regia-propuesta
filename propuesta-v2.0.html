@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Propuesta v2.0 · Cynthia La Regia · ALCONSULTING</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=Geist+Mono:wght@400;500&family=Source+Serif+4:ital,wght@1,400;1,500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #14141c;
+    --surface-2: #1a1a24;
+    --border: rgba(255,255,255,0.06);
+    --border-strong: rgba(255,255,255,0.10);
+    --violet: #7c3aed;
+    --violet-300: rgb(196, 181, 253);
+    --violet-400: rgb(167, 139, 250);
+    --cyan-300: rgb(165, 243, 252);
+    --emerald-300: rgb(167, 243, 208);
+    --amber-300: rgb(252, 211, 77);
+  }
+  body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: #f5f5fa; -webkit-font-smoothing: antialiased; }
+  .display { font-family: 'Space Grotesk', system-ui, sans-serif; }
+  .font-mono { font-family: 'Geist Mono', ui-monospace, monospace; }
+  .serif-italic { font-family: 'Source Serif 4', Georgia, serif; font-style: italic; }
+  html { scroll-behavior: smooth; }
+
+  /* Grain dot pattern */
+  .grain { position: fixed; inset: 0; pointer-events: none; opacity: 0.025; background-image: radial-gradient(#fff 1px, transparent 1px); background-size: 4px 4px; z-index: 1; }
+
+  /* Hero gradient text */
+  .gradient-text { background: linear-gradient(135deg, #7c3aed 0%, #22d3ee 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .gradient-violet { background: linear-gradient(135deg, #c4b5fd 0%, #7c3aed 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+  /* Glow shadows */
+  .glow-violet { box-shadow: 0 0 60px -15px rgba(124, 58, 237, 0.5); }
+  .glow-cyan { box-shadow: 0 0 40px -15px rgba(34, 211, 238, 0.4); }
+  .glow-emerald { box-shadow: 0 0 30px -15px rgba(16, 185, 129, 0.4); }
+
+  .toc-link { transition: color 0.15s, border-color 0.15s; }
+  .toc-link:hover { color: rgb(255 255 255); border-left-color: rgb(139 92 246); }
+
+  /* Diagram cards */
+  .diagram-card { background: rgba(20, 20, 28, 0.6); border: 1px solid var(--border); border-radius: 24px; padding: 28px; backdrop-filter: blur(8px); }
+  @media (min-width: 768px) { .diagram-card { padding: 32px; } }
+
+  /* Pills */
+  .pill { display: inline-block; padding: 3px 9px; border-radius: 6px; font-size: 11px; font-family: 'Geist Mono', ui-monospace, monospace; font-weight: 500; }
+  .pill-violet  { background: rgba(139, 92, 246, 0.15); border: 1px solid rgba(139, 92, 246, 0.35); color: rgb(196, 181, 253); }
+  .pill-amber   { background: rgba(245, 158, 11, 0.15); border: 1px solid rgba(245, 158, 11, 0.35); color: rgb(252, 211, 77); }
+  .pill-cyan    { background: rgba(6, 182, 212, 0.15);  border: 1px solid rgba(6, 182, 212, 0.35);  color: rgb(165, 243, 252); }
+  .pill-emerald { background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.35); color: rgb(167, 243, 208); }
+  .pill-rose    { background: rgba(244, 63, 94, 0.15);  border: 1px solid rgba(244, 63, 94, 0.35);  color: rgb(253, 164, 175); }
+  .pill-blue    { background: rgba(59, 130, 246, 0.15); border: 1px solid rgba(59, 130, 246, 0.35); color: rgb(147, 197, 253); }
+  .pill-zinc    { background: rgba(113, 113, 122, 0.15); border: 1px solid rgba(113, 113, 122, 0.35); color: rgb(212, 212, 216); }
+
+  /* Expandable session cards */
+  details.wf-card {
+    background: rgba(20, 20, 28, 0.5);
+    border: 1px solid var(--border-strong);
+    border-radius: 16px;
+    margin-bottom: 14px; overflow: hidden;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  details.wf-card[open] { border-color: rgba(139, 92, 246, 0.4); box-shadow: 0 0 40px -15px rgba(124, 58, 237, 0.25); }
+  details.wf-card > summary {
+    padding: 18px 22px; cursor: pointer; list-style: none;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 16px; flex-wrap: wrap;
+  }
+  details.wf-card > summary::-webkit-details-marker { display: none; }
+  details.wf-card > summary::after {
+    content: '＋'; font-family: 'Geist Mono', monospace;
+    color: rgb(167, 139, 250); font-size: 18px; flex-shrink: 0;
+  }
+  details.wf-card[open] > summary::after { content: '−'; }
+  details.wf-card > .wf-body {
+    padding: 0 22px 22px;
+    border-top: 1px solid rgba(255, 255, 255, 0.04);
+    padding-top: 18px;
+  }
+
+  /* Step tables */
+  .step-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .step-table th {
+    text-align: left; font-family: 'Geist Mono', monospace;
+    font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em;
+    color: rgba(255, 255, 255, 0.6); padding: 10px 14px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06); font-weight: 500;
+  }
+  .step-table td {
+    padding: 12px 14px; vertical-align: top;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    color: rgba(255, 255, 255, 0.92); line-height: 1.6;
+  }
+  .step-table td:first-child { font-weight: 500; width: 230px; font-family: 'Inter', sans-serif; color: #fff; }
+  .step-table tr:last-child td { border-bottom: none; }
+
+  /* Phase cards (horizontal scroll) */
+  .phase-card {
+    flex-shrink: 0; width: 220px; border-radius: 14px;
+    background: linear-gradient(135deg, #14141c 0%, #0c0c14 100%);
+    border: 1px solid var(--border-strong);
+    padding: 16px; display: flex; flex-direction: column; gap: 8px;
+    transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+  }
+  .phase-card:hover { transform: translateY(-3px); border-color: rgba(139, 92, 246, 0.4); box-shadow: 0 0 30px -15px rgba(124, 58, 237, 0.3); }
+
+  /* Stage cards (deliverables) */
+  .stage-card {
+    flex-shrink: 0; width: 240px; border-radius: 14px;
+    background: linear-gradient(135deg, #14141c 0%, #0c0c14 100%);
+    border: 1px solid var(--border-strong);
+    overflow: hidden; display: flex; flex-direction: column;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .stage-card:hover { transform: translateY(-3px); border-color: rgba(139, 92, 246, 0.4); }
+  .stage-card .accent { height: 4px; }
+  .stage-card .body { padding: 16px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+  .stage-card .desc {
+    font-size: 11px; color: rgba(255, 255, 255, 0.85); line-height: 1.55;
+    margin-top: auto; padding-top: 10px; border-top: 1px solid rgba(255, 255, 255, 0.04);
+  }
+
+  /* Pillar cards (with icons) */
+  .pillar { transition: all 0.25s ease; background: rgba(20, 20, 28, 0.6); border: 1px solid var(--border); border-radius: 18px; padding: 24px; }
+  .pillar:hover { transform: translateY(-4px); border-color: rgba(139, 92, 246, 0.4); box-shadow: 0 0 40px -15px rgba(124, 58, 237, 0.3); }
+  .pillar-icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; }
+
+  /* Pricing rows */
+  .pricing-row { display: grid; grid-template-columns: 1fr auto; gap: 16px; align-items: center; padding: 14px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.04); }
+  .pricing-row:last-child { border-bottom: 0; }
+
+  /* Risk cards */
+  .risk-card { background: rgba(20, 20, 28, 0.5); border: 1px solid var(--border-strong); border-left: 3px solid rgba(245, 158, 11, 0.6); border-radius: 12px; padding: 16px 20px; margin-bottom: 12px; }
+
+  /* Step nums for próximos pasos */
+  .step-num { width: 36px; height: 36px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-family: 'Geist Mono', monospace; font-weight: 600; font-size: 14px; background: rgba(139, 92, 246, 0.15); border: 1px solid rgba(139, 92, 246, 0.4); color: rgb(196, 181, 253); flex-shrink: 0; }
+
+  /* Pull quote */
+  blockquote.pull-quote {
+    border-left: 3px solid rgba(139, 92, 246, 0.6);
+    padding: 6px 0 6px 18px;
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.92);
+    line-height: 1.65;
+    font-size: 1rem;
+  }
+  @media (min-width: 768px) { blockquote.pull-quote { font-size: 1.05rem; } }
+
+  /* Sticky CTA mobile */
+  @media (max-width: 768px) { main { padding-bottom: 6rem; } }
+</style>
+</head>
+<body class="antialiased min-h-screen relative">
+
+<div class="grain"></div>
+<div class="fixed inset-0 pointer-events-none z-0" style="background: radial-gradient(ellipse 80% 50% at 50% -10%, rgba(139, 92, 246, 0.12), transparent 60%);"></div>
+
+<div class="relative max-w-[1400px] mx-auto flex z-10">
+
+  <!-- TOC SIDEBAR (desktop) -->
+  <aside class="hidden lg:block w-60 shrink-0 sticky top-0 h-screen pt-20 px-6 overflow-y-auto bg-[#0c0c12]/80 backdrop-blur-md border-r border-white/[0.06]">
+    <div class="flex items-center gap-2 mb-5">
+      <div class="w-7 h-7 rounded-lg bg-gradient-to-br from-violet-500 to-cyan-400 flex items-center justify-center font-display font-bold text-bg text-xs text-black">AL</div>
+      <p class="font-mono text-[10px] uppercase tracking-[0.2em] text-white">Propuesta v2.0</p>
+    </div>
+    <nav class="space-y-0.5">
+      <a href="#cliente" class="toc-link block py-2 px-3 text-sm text-white/80 border-l border-transparent">01 · Cliente</a>
+      <a href="#filosofia" class="toc-link block py-2 px-3 text-sm text-white/80 border-l border-transparent">02 · Filosofía</a>
+      <a href="#diagnostico" class="toc-link block py-2 px-3 text-sm text-white/80 border-l border-transparent">03 · Diagnóstico</a>
+      <a href="#recorrido" class="toc-link block py-2 px-3 text-sm text-white/80 border-l border-transparent">04 · Cómo trabajamos</a>
+      <a href="#sesiones" class="toc-link block py-2 px-3 text-sm text-white/80 border-l border-transparent">05 · Detalle por etapa</a>
+      <a href="#deliverables" class="toc-link block py-2 px-3 text-sm text-white/80 border-l border-transparent">06 · Deliverables</a>
+      <a href="#horas" class="toc-link block py-2 px-3 text-sm text-white/80 border-l border-transparent">07 · Horas ahorradas</a>
+      <a href="#pricing" class="toc-link block py-2 px-3 text-sm text-white/80 border-l border-transparent">08 · Inversión</a>
+      <a href="#riesgos" class="toc-link block py-2 px-3 text-sm text-white/80 border-l border-transparent">09 · Riesgos</a>
+      <a href="#next" class="toc-link block py-2 px-3 text-sm text-white/80 border-l border-transparent">10 · Próximos pasos</a>
+    </nav>
+
+    <div class="mt-10 pt-6 border-t border-white/[0.06]">
+      <p class="font-mono text-[10px] uppercase tracking-wider text-white/60 mb-2">Cliente</p>
+      <p class="text-sm text-white">Cynthia La Regia</p>
+      <p class="text-xs text-white/60">Cynthia · Xochitl</p>
+    </div>
+    <div class="mt-4">
+      <p class="font-mono text-[10px] uppercase tracking-wider text-white/60 mb-2">Stack</p>
+      <p class="text-sm text-white">GHL · 2 usuarios</p>
+      <p class="text-xs text-white/60">Conversation AI V2 · Google Calendar</p>
+    </div>
+    <div class="mt-4">
+      <p class="font-mono text-[10px] uppercase tracking-wider text-white/60 mb-2">Equipo</p>
+      <p class="text-sm text-white">Andrés Linares</p>
+      <p class="text-xs text-white/60">ALCONSULTING</p>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="flex-1 px-5 md:px-10 py-10 md:py-20 max-w-[1100px]">
+
+    <!-- HEADER STICKY (mobile) -->
+    <div class="lg:hidden sticky top-0 z-50 -mx-5 mb-8 bg-bg/85 backdrop-blur-md border-b border-white/[0.06]">
+      <div class="px-5 py-3 flex items-center justify-between gap-4">
+        <div class="flex items-center gap-3 min-w-0">
+          <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-cyan-400 flex items-center justify-center shrink-0 font-display font-bold text-black text-xs">AL</div>
+          <div class="min-w-0">
+            <div class="text-[10px] text-white/50 uppercase tracking-wider font-mono">Propuesta v2.0</div>
+            <div class="display font-semibold text-sm truncate">Cynthia La Regia</div>
+          </div>
+        </div>
+        <span class="shrink-0 pill pill-cyan">v2.0</span>
+      </div>
+    </div>
+
+    <!-- HEADER HERO -->
+    <header class="mb-16 md:mb-24">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.04] border border-white/[0.08] text-xs text-white/80 mb-6">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span class="font-mono text-[11px]">Implementación · Solo 3 reuniones, el resto async</span>
+      </div>
+      <h1 class="display text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.02]">
+        De contestar mensajes a la 1am<br />
+        a un proceso comercial<br />
+        <span class="gradient-text">que califica y agenda solo</span>.
+      </h1>
+      <p class="mt-7 text-lg md:text-xl text-white/85 max-w-2xl leading-relaxed">
+        Armamos el bot que filtra High Ticket de Low Ticket, agenda en tu Google Calendar y hace el seguimiento con tu voz. Casi todo lo hacemos async para no robarte tiempo: completás un documento, armamos todo, y solo nos vemos 3 veces.
+      </p>
+      <blockquote class="pull-quote mt-7 max-w-3xl">
+        No voy a querer ser yo la que se ponga a contestar mensajes.
+        <span class="block not-italic font-sans text-xs text-white/55 mt-2">— Cynthia · reunión 1</span>
+      </blockquote>
+      <div class="flex flex-wrap gap-2 mt-7">
+        <span class="pill pill-violet">Solo 3 reuniones</span>
+        <span class="pill pill-violet">Bot calificador 24/7</span>
+        <span class="pill pill-cyan">HT vs LT automático</span>
+        <span class="pill pill-emerald">Agenda ↔ Google Calendar</span>
+        <span class="pill pill-cyan">Seguimiento con tu voz</span>
+        <span class="pill pill-amber">USD 950</span>
+      </div>
+      <div class="flex flex-wrap gap-3 mt-8">
+        <a href="#recorrido" class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-violet-600 hover:bg-violet-500 text-white font-medium transition glow-violet">
+          Ver el plan completo
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+        </a>
+        <a href="#pricing" class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.10] text-white font-medium transition">
+          Ver inversión
+        </a>
+      </div>
+    </header>
+
+    <!-- 01 · CLIENTE -->
+    <section id="cliente" class="mb-20 md:mb-24 scroll-mt-12">
+      <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-violet-300 mb-3">01 · Cliente</p>
+      <h2 class="display text-2xl md:text-4xl font-bold tracking-tight mb-3">Cynthia La Regia</h2>
+      <p class="serif-italic text-white/85 mb-8 max-w-3xl">Mentorías de negocio high-ticket. Construyendo el puente entre el mercado MX (referidos) y el mercado US digital con ads pagos en Meta y TikTok.</p>
+
+      <div class="diagram-card">
+        <table class="step-table">
+          <tbody>
+            <tr><td>Negocio</td><td>Mentorías de negocio high-ticket · mercado US</td></tr>
+            <tr><td>Equipo</td><td><span class="pill pill-violet">Cynthia</span> <span class="pill pill-violet">Xochitl</span></td></tr>
+            <tr><td>Canales activos</td><td>Instagram · Facebook · WhatsApp · TikTok (ads en beta)</td></tr>
+            <tr><td>Stack actual</td><td><span class="pill pill-amber">Sin CRM</span> <span class="pill pill-zinc">WhatsApp manual</span> <span class="pill pill-zinc">Agenda suelta</span></td></tr>
+            <tr><td>Implementador</td><td><span class="pill pill-cyan">Andrés Linares</span> · ALCONSULTING — estrategia ads: Javier Raaz</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 02 · FILOSOFÍA -->
+    <section id="filosofia" class="mb-20 md:mb-24 scroll-mt-12">
+      <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-violet-300 mb-3">02 · Filosofía</p>
+      <h2 class="display text-2xl md:text-4xl font-bold tracking-tight mb-3">Cómo trabajamos</h2>
+      <p class="serif-italic text-white/85 mb-8 max-w-3xl">Automatizamos de a poco el cuello de botella mayor — no armamos algo monstruoso que nadie opera.</p>
+
+      <div class="grid md:grid-cols-3 gap-4">
+        <div class="pillar">
+          <div class="pillar-icon mb-4" style="background: rgba(139, 92, 246, 0.15);">
+            <svg class="w-6 h-6 text-violet-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2M9 5a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2M9 5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2"/></svg>
+          </div>
+          <div class="flex items-center gap-2 mb-2"><span class="pill pill-violet">01</span><span class="font-mono text-[10px] uppercase tracking-wider text-white/50">Pilar</span></div>
+          <h3 class="display font-semibold text-base mb-2">El cuello de botella primero</h3>
+          <p class="text-sm text-white/80 leading-relaxed">Arrancamos con lo que más duele — el filtro HT/LT y la agenda. No construimos todo de una, construimos lo que libera tiempo ya.</p>
+        </div>
+        <div class="pillar">
+          <div class="pillar-icon mb-4" style="background: rgba(6, 182, 212, 0.15);">
+            <svg class="w-6 h-6 text-cyan-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          </div>
+          <div class="flex items-center gap-2 mb-2"><span class="pill pill-cyan">02</span><span class="font-mono text-[10px] uppercase tracking-wider text-white/50">Pilar</span></div>
+          <h3 class="display font-semibold text-base mb-2">Bot con tu voz, no con voz genérica</h3>
+          <p class="text-sm text-white/80 leading-relaxed">Entrenamos el bot con el cuestionario de tono de Cynthia. Cada respuesta habla como ella — no como un asistente corporativo.</p>
+        </div>
+        <div class="pillar">
+          <div class="pillar-icon mb-4" style="background: rgba(16, 185, 129, 0.15);">
+            <svg class="w-6 h-6 text-emerald-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+          </div>
+          <div class="flex items-center gap-2 mb-2"><span class="pill pill-emerald">03</span><span class="font-mono text-[10px] uppercase tracking-wider text-white/50">Pilar</span></div>
+          <h3 class="display font-semibold text-base mb-2">Plataforma 100% tuya</h3>
+          <p class="text-sm text-white/80 leading-relaxed">Al terminar la implementación, la cuenta GHL es de Cynthia. Sin dependencia de agencia, sin retención. Xochitl puede operar todo sola.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03 · DIAGNÓSTICO -->
+    <section id="diagnostico" class="mb-20 md:mb-24 scroll-mt-12">
+      <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-violet-300 mb-3">03 · Diagnóstico</p>
+      <h2 class="display text-2xl md:text-4xl font-bold tracking-tight mb-3">Lo que está pasando hoy — y lo que resolvemos</h2>
+      <p class="serif-italic text-white/85 mb-8 max-w-3xl">Tres dolores con solución directa en el paquete de arranque.</p>
+
+      <div class="grid md:grid-cols-2 gap-5">
+        <div class="diagram-card" style="border-color: rgba(245, 158, 11, 0.25);">
+          <div class="flex items-center gap-2 mb-4">
+            <span class="pill pill-amber">⚠ Hoy</span>
+            <span class="font-mono text-[10px] uppercase tracking-wider text-white/60">Lo que duele</span>
+          </div>
+          <ul class="space-y-2.5 text-sm text-white/90">
+            <li class="flex gap-2"><span class="text-amber-400 shrink-0 mt-0.5">›</span><span>Cynthia contesta mensajes a la 1am — los leads escriben de noche</span></li>
+            <li class="flex gap-2"><span class="text-amber-400 shrink-0 mt-0.5">›</span><span>Leads sin filtrar: llegan "quebrados" que no pueden pagar 3-5k USD</span></li>
+            <li class="flex gap-2"><span class="text-amber-400 shrink-0 mt-0.5">›</span><span>Dos empalmes de cita en una sola semana por agenda desordenada</span></li>
+            <li class="flex gap-2"><span class="text-amber-400 shrink-0 mt-0.5">›</span><span>Sin CRM — todo "en la cabeza" o en WhatsApp manual</span></li>
+            <li class="flex gap-2"><span class="text-amber-400 shrink-0 mt-0.5">›</span><span>Seguimiento High Ticket dependiente de hacer recordatorios a mano</span></li>
+            <li class="flex gap-2"><span class="text-amber-400 shrink-0 mt-0.5">›</span><span>IG/FB/WhatsApp/TikTok dispersos — Xochitl salta entre plataformas</span></li>
+          </ul>
+        </div>
+
+        <div class="diagram-card" style="border-color: rgba(16, 185, 129, 0.25);">
+          <div class="flex items-center gap-2 mb-4">
+            <span class="pill pill-emerald">✓ Después</span>
+            <span class="font-mono text-[10px] uppercase tracking-wider text-white/60">Lo que entregamos</span>
+          </div>
+          <ul class="space-y-2.5 text-sm text-white/90">
+            <li class="flex gap-2"><span class="text-emerald-400 shrink-0 mt-0.5">›</span><span>Bot responde 24/7 — Cynthia deja de estar en el chat a la 1am</span></li>
+            <li class="flex gap-2"><span class="text-emerald-400 shrink-0 mt-0.5">›</span><span>Filtro HT/LT automático — solo llegan a llamada quienes califican</span></li>
+            <li class="flex gap-2"><span class="text-emerald-400 shrink-0 mt-0.5">›</span><span>Calendario ↔ Google Calendar + confirmación automática — cero empalmes</span></li>
+            <li class="flex gap-2"><span class="text-emerald-400 shrink-0 mt-0.5">›</span><span>Pipeline GHL operativo — pipeline comercial con etapas claras</span></li>
+            <li class="flex gap-2"><span class="text-emerald-400 shrink-0 mt-0.5">›</span><span>Follow-up con su voz — el bot lee la conversación y escribe personalizado</span></li>
+            <li class="flex gap-2"><span class="text-emerald-400 shrink-0 mt-0.5">›</span><span>Todo centralizado — IG/FB/WhatsApp/TikTok en un solo lugar (GHL)</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 · CÓMO TRABAJAMOS -->
+    <section id="recorrido" class="mb-20 md:mb-24 scroll-mt-12">
+      <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-violet-300 mb-3">04 · Cómo trabajamos</p>
+      <h2 class="display text-2xl md:text-4xl font-bold tracking-tight mb-3">Casi todo async, solo 3 reuniones</h2>
+      <p class="serif-italic text-white/85 mb-8 max-w-3xl">Vos completás un documento, yo armo todo, y solo nos vemos en vivo 3 veces. Tu tiempo se respeta de arranque — soporte WhatsApp continuo durante todo el proceso.</p>
+
+      <div class="diagram-card">
+        <div class="flex items-center justify-between mb-5">
+          <p class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/60">Implementación · 3 reuniones</p>
+          <p class="font-mono text-[10px] text-white/40">scroll →</p>
+        </div>
+        <div class="overflow-x-auto pb-3 -mx-6 px-6 md:-mx-8 md:px-8">
+          <div class="flex gap-3 items-stretch min-w-max">
+
+            <div class="phase-card">
+              <span class="font-mono text-[10px] uppercase tracking-wider text-cyan-300">Etapa 0</span>
+              <h3 class="display text-sm font-semibold text-white">Documento de onboarding</h3>
+              <span class="self-start pill pill-zinc">Async · sin reunión</span>
+              <p class="text-[11px] text-white/75 leading-relaxed mt-1">Completás un doc con toda la data del negocio cuando puedas.</p>
+            </div>
+            <div class="flex items-center text-white/30 px-1">▸</div>
+
+            <div class="phase-card">
+              <span class="font-mono text-[10px] uppercase tracking-wider text-cyan-300">Etapa 1</span>
+              <h3 class="display text-sm font-semibold text-white">Construcción</h3>
+              <span class="self-start pill pill-zinc">Async · sin reunión</span>
+              <p class="text-[11px] text-white/75 leading-relaxed mt-1">Con tu data armo el bot + estructura comercial + agenda.</p>
+            </div>
+            <div class="flex items-center text-white/30 px-1">▸</div>
+
+            <div class="phase-card">
+              <span class="font-mono text-[10px] uppercase tracking-wider text-violet-300">Reunión 1</span>
+              <h3 class="display text-sm font-semibold text-white">Validación</h3>
+              <span class="self-start pill pill-violet">Reunión 1</span>
+              <p class="text-[11px] text-white/75 leading-relaxed mt-1">Ves todo armado, ajustamos en vivo, validás.</p>
+            </div>
+            <div class="flex items-center text-white/30 px-1">▸</div>
+
+            <div class="phase-card">
+              <span class="font-mono text-[10px] uppercase tracking-wider text-violet-300">Reunión 2</span>
+              <h3 class="display text-sm font-semibold text-white">Entrenamiento · parte 1</h3>
+              <span class="self-start pill pill-violet">Reunión 2</span>
+              <p class="text-[11px] text-white/75 leading-relaxed mt-1">Manejo de la plataforma, primera parte.</p>
+            </div>
+            <div class="flex items-center text-white/30 px-1">▸</div>
+
+            <div class="phase-card" style="border-color: rgba(16, 185, 129, 0.4); box-shadow: 0 0 20px -10px rgba(16, 185, 129, 0.3);">
+              <span class="font-mono text-[10px] uppercase tracking-wider text-emerald-300">Reunión 3</span>
+              <h3 class="display text-sm font-semibold text-white">Entrenamiento · parte 2 + cierre</h3>
+              <span class="self-start pill pill-emerald">Reunión 3 · cierre</span>
+              <p class="text-[11px] text-white/75 leading-relaxed mt-1">Termina el manejo de plataforma, handoff, listo.</p>
+            </div>
+
+          </div>
+        </div>
+        <div class="flex flex-wrap items-center gap-6 mt-6 pt-4 border-t border-white/[0.04]">
+          <div class="flex items-center gap-2 text-xs"><span class="w-3 h-1.5 rounded-sm bg-zinc-400/80"></span><span class="text-white/70">Async · sin reunión (2)</span></div>
+          <div class="flex items-center gap-2 text-xs"><span class="w-3 h-1.5 rounded-sm bg-violet-400/80"></span><span class="text-white/70">Solo 3 implican reunión</span></div>
+          <div class="flex items-center gap-2 text-xs"><span class="font-mono text-[10px] text-white/50">Soporte WhatsApp todo el proceso</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05 · DETALLE POR ETAPA -->
+    <section id="sesiones" class="mb-20 md:mb-24 scroll-mt-12">
+      <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-violet-300 mb-3">05 · Detalle por etapa</p>
+      <h2 class="display text-2xl md:text-4xl font-bold tracking-tight mb-3">Qué pasa en cada etapa</h2>
+      <p class="serif-italic text-white/85 mb-8 max-w-3xl">Tocá cada etapa para abrir el detalle. Las dos primeras son async (sin reunión); solo 3 implican vernos en vivo.</p>
+
+      <details class="wf-card" open>
+        <summary>
+          <div class="flex items-center gap-3 flex-wrap">
+            <span class="pill pill-cyan">Etapa 0</span>
+            <h3 class="display text-base md:text-lg font-semibold">Documento de onboarding</h3>
+            <span class="pill pill-zinc">Async · sin reunión</span>
+          </div>
+        </summary>
+        <div class="wf-body">
+          <p class="text-sm text-white/75 mb-4 serif-italic">No te robamos tiempo de entrada. Completás un documento con la data del negocio cuando puedas — a tu ritmo.</p>
+          <table class="step-table">
+            <thead><tr><th>Qué completás</th><th>Modo</th><th>Contenido</th></tr></thead>
+            <tbody>
+              <tr><td>Quién sos y a quién mentoreás</td><td><span class="pill pill-cyan">Async</span></td><td>Perfil del cliente High Ticket vs Low Ticket, ticket promedio, qué resuelven tus mentorías.</td></tr>
+              <tr><td>Cuestionario de tono</td><td><span class="pill pill-cyan">Async</span></td><td>Tu forma de hablar, frases típicas, qué NO querés que diga el bot. Esto es el ADN de su voz.</td></tr>
+              <tr><td>Preguntas de calificación</td><td><span class="pill pill-cyan">Async</span></td><td>Qué necesitás saber de un lead para decidir si es HT o LT.</td></tr>
+              <tr><td>FAQs y precios orientativos</td><td><span class="pill pill-cyan">Async</span></td><td>Lo que más te preguntan. Material para la Knowledge Base del bot.</td></tr>
+              <tr><td>Decisión WhatsApp</td><td><span class="pill pill-cyan">Async</span></td><td>Activar WhatsApp ahora o esperar a que maduren los ads. Se decide acá, sin reunión.</td></tr>
+            </tbody>
+          </table>
+          <div class="grid md:grid-cols-2 gap-3 mt-4">
+            <div class="diagram-card" style="padding: 14px; border-color: rgba(6, 182, 212, 0.3);"><span class="pill pill-cyan mb-2">Resultado</span><p class="text-sm text-white/90 mt-2">Toda la data del negocio en un solo documento. Sin reunión.</p></div>
+            <div class="diagram-card" style="padding: 14px;"><span class="pill pill-zinc mb-2">Tu tiempo</span><p class="text-sm text-white/80 mt-2">Lo completás cuando tengas un rato. Sin agenda, sin presión.</p></div>
+          </div>
+        </div>
+      </details>
+
+      <details class="wf-card">
+        <summary>
+          <div class="flex items-center gap-3 flex-wrap">
+            <span class="pill pill-cyan">Etapa 1</span>
+            <h3 class="display text-base md:text-lg font-semibold">Construcción</h3>
+            <span class="pill pill-zinc">Async · sin reunión</span>
+          </div>
+        </summary>
+        <div class="wf-body">
+          <p class="text-sm text-white/75 mb-4 serif-italic">Acá hago la carpintería yo, con tu data. Vos seguís en lo tuyo — no necesitás estar.</p>
+          <table class="step-table">
+            <thead><tr><th>Qué armo</th><th>Modo</th><th>Contenido</th></tr></thead>
+            <tbody>
+              <tr><td>Cuenta GHL + 2 usuarios</td><td><span class="pill pill-cyan">Async</span></td><td>Subcuenta lista, Cynthia y Xochitl dados de alta, IG/FB/WhatsApp/TikTok centralizados.</td></tr>
+              <tr><td>Pipeline + estructura comercial</td><td><span class="pill pill-cyan">Async</span></td><td>Etapas HT/LT, Custom Fields de calificación, tags canónicos.</td></tr>
+              <tr><td>Bot calificador (Bot Goals V2)</td><td><span class="pill pill-cyan">Async</span></td><td>Bot con tu voz, las 3-5 preguntas, Knowledge Base cargada, probado en sandbox.</td></tr>
+              <tr><td>Agenda ↔ Google Calendar</td><td><span class="pill pill-cyan">Async</span></td><td>Calendario sincronizado, recordatorios día antes + 2h, confirma/cae cita sola.</td></tr>
+              <tr><td>Seguimiento con tu voz</td><td><span class="pill pill-cyan">Async</span></td><td>Workflow de follow-up High Ticket que lee la conversación y escribe como vos.</td></tr>
+            </tbody>
+          </table>
+          <div class="grid md:grid-cols-2 gap-3 mt-4">
+            <div class="diagram-card" style="padding: 14px; border-color: rgba(6, 182, 212, 0.3);"><span class="pill pill-cyan mb-2">Resultado</span><p class="text-sm text-white/90 mt-2">Todo el sistema armado y probado en sandbox, listo para que lo veas.</p></div>
+            <div class="diagram-card" style="padding: 14px;"><span class="pill pill-zinc mb-2">Tu tiempo</span><p class="text-sm text-white/80 mt-2">Cero. Yo construyo, te aviso por WhatsApp cuando esté listo para la Reunión 1.</p></div>
+          </div>
+        </div>
+      </details>
+
+      <details class="wf-card">
+        <summary>
+          <div class="flex items-center gap-3 flex-wrap">
+            <span class="pill pill-violet">Reunión 1</span>
+            <h3 class="display text-base md:text-lg font-semibold">Validación</h3>
+            <span class="pill pill-violet">En vivo</span>
+            <span class="pill pill-emerald">Momento clave</span>
+          </div>
+        </summary>
+        <div class="wf-body">
+          <p class="text-sm text-white/75 mb-4 serif-italic">La primera vez que nos vemos en vivo: ya está todo armado. Lo revisás, ajustamos juntos, validás.</p>
+          <table class="step-table">
+            <thead><tr><th>Bloque</th><th>Tiempo</th><th>Contenido</th></tr></thead>
+            <tbody>
+              <tr><td>Recorrido del sistema armado</td><td><span class="pill pill-amber">15 min</span></td><td>Te muestro el pipeline, el bot, la agenda y el seguimiento funcionando.</td></tr>
+              <tr><td>Prueba del bot como lead</td><td><span class="pill pill-amber">15 min</span></td><td>Lo probás como si fueras un cliente. ¿Suena a vos? ¿Filtra bien HT/LT?</td></tr>
+              <tr><td>Ajustes en vivo</td><td><span class="pill pill-amber">20 min</span></td><td>Corregimos tono, preguntas, etapas — lo que haga falta, en el momento.</td></tr>
+              <tr><td>Validación + próximos pasos</td><td><span class="pill pill-amber">10 min</span></td><td>Confirmás que está como lo querés. Coordinamos las 2 reuniones de entrenamiento.</td></tr>
+            </tbody>
+          </table>
+          <div class="grid md:grid-cols-2 gap-3 mt-4">
+            <div class="diagram-card" style="padding: 14px; border-color: rgba(6, 182, 212, 0.3);"><span class="pill pill-cyan mb-2">Deliverable</span><p class="text-sm text-white/90 mt-2">Sistema validado por Cynthia · ajustes aplicados en vivo.</p></div>
+            <div class="diagram-card" style="padding: 14px;"><span class="pill pill-zinc mb-2">Después</span><p class="text-sm text-white/80 mt-2">1-2 semanas de iteración con pulgar arriba/abajo, async, hasta que el bot hable 100% con tu voz.</p></div>
+          </div>
+        </div>
+      </details>
+
+      <details class="wf-card">
+        <summary>
+          <div class="flex items-center gap-3 flex-wrap">
+            <span class="pill pill-violet">Reunión 2</span>
+            <h3 class="display text-base md:text-lg font-semibold">Entrenamiento · parte 1</h3>
+            <span class="pill pill-violet">En vivo</span>
+            <span class="pill pill-cyan">Plataforma</span>
+          </div>
+        </summary>
+        <div class="wf-body">
+          <p class="text-sm text-white/75 mb-4 serif-italic">Te enseño a manejar la plataforma. Empezamos por lo simple — el 90% del valor.</p>
+          <table class="step-table">
+            <thead><tr><th>Bloque</th><th>Tiempo</th><th>Contenido</th></tr></thead>
+            <tbody>
+              <tr><td>Inbox unificado</td><td><span class="pill pill-amber">15 min</span></td><td>Cómo ver y responder IG/FB/WhatsApp/TikTok desde un solo lugar.</td></tr>
+              <tr><td>Manejo del pipeline</td><td><span class="pill pill-amber">20 min</span></td><td>Mover leads entre etapas, leer la calificación HT/LT, qué hace cada estado.</td></tr>
+              <tr><td>Agenda y citas</td><td><span class="pill pill-amber">15 min</span></td><td>Cómo se agendan las llamadas, los recordatorios, qué ves en Google Calendar.</td></tr>
+              <tr><td>Dudas + práctica</td><td><span class="pill pill-amber">10 min</span></td><td>Practicás con casos reales. Queda grabado para repasar.</td></tr>
+            </tbody>
+          </table>
+          <div class="grid md:grid-cols-2 gap-3 mt-4">
+            <div class="diagram-card" style="padding: 14px; border-color: rgba(6, 182, 212, 0.3);"><span class="pill pill-cyan mb-2">Deliverable</span><p class="text-sm text-white/90 mt-2">Cynthia + Xochitl manejando el día a día de la plataforma.</p></div>
+            <div class="diagram-card" style="padding: 14px;"><span class="pill pill-zinc mb-2">Grabado</span><p class="text-sm text-white/80 mt-2">El entrenamiento queda grabado para que Xochitl lo vea a su ritmo desde México.</p></div>
+          </div>
+        </div>
+      </details>
+
+      <details class="wf-card">
+        <summary>
+          <div class="flex items-center gap-3 flex-wrap">
+            <span class="pill pill-emerald">Reunión 3</span>
+            <h3 class="display text-base md:text-lg font-semibold">Entrenamiento · parte 2 + cierre</h3>
+            <span class="pill pill-violet">En vivo</span>
+            <span class="pill pill-emerald">Cierre</span>
+          </div>
+        </summary>
+        <div class="wf-body">
+          <p class="text-sm text-white/75 mb-4 serif-italic">Terminamos el manejo de la plataforma y hacemos el handoff. Salís siendo dueña del sistema — sin depender de mí.</p>
+          <table class="step-table">
+            <thead><tr><th>Bloque</th><th>Tiempo</th><th>Contenido</th></tr></thead>
+            <tbody>
+              <tr><td>Iterar el bot sin saber técnica</td><td><span class="pill pill-amber">15 min</span></td><td>Cómo seguir mejorando el bot con pulgar arriba/abajo, sin tocar nada complejo.</td></tr>
+              <tr><td>Seguimiento y reportería</td><td><span class="pill pill-amber">15 min</span></td><td>Leer el follow-up automático, ver qué pasa con cada lead HT.</td></tr>
+              <tr><td>Repaso end-to-end</td><td><span class="pill pill-amber">15 min</span></td><td>Lead entra → bot califica → agenda → recordatorio → follow-up. Todo el flujo, de punta a punta.</td></tr>
+              <tr><td>Handoff + cierre</td><td><span class="pill pill-amber">15 min</span></td><td>Entrega de accesos, soporte post-implementación. Listo.</td></tr>
+            </tbody>
+          </table>
+          <div class="grid md:grid-cols-2 gap-3 mt-4">
+            <div class="diagram-card glow-emerald" style="padding: 14px; border-color: rgba(16, 185, 129, 0.4);"><span class="pill pill-emerald mb-2">Deliverable final</span><p class="text-sm text-white/90 mt-2">Sistema live · Cynthia + Xochitl autónomas · Training grabado · Acceso 100% de Cynthia.</p></div>
+            <div class="diagram-card" style="padding: 14px;"><span class="pill pill-zinc mb-2">Después</span><p class="text-sm text-white/80 mt-2">Soporte WhatsApp todo el mes. La plataforma es tuya, sin retención.</p></div>
+          </div>
+        </div>
+      </details>
+    </section>
+
+    <!-- 06 · DELIVERABLES -->
+    <section id="deliverables" class="mb-20 md:mb-24 scroll-mt-12">
+      <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-cyan-300 mb-3">06 · Deliverables</p>
+      <h2 class="display text-2xl md:text-4xl font-bold tracking-tight mb-3">Lo que sale de la implementación</h2>
+      <p class="serif-italic text-white/85 mb-8 max-w-3xl">Todo esto lo armo en la construcción async y lo entrego validado. Cinco piezas concretas, operativas.</p>
+
+      <div class="diagram-card">
+        <div class="overflow-x-auto pb-3 -mx-6 px-6 md:-mx-8 md:px-8">
+          <div class="flex gap-3 items-stretch min-w-max">
+
+            <div class="stage-card">
+              <div class="accent" style="background: linear-gradient(90deg, #7c3aed, #a78bfa);"></div>
+              <div class="body">
+                <span class="font-mono text-[10px] uppercase tracking-wider text-white/60">Pieza 1</span>
+                <h3 class="display text-base font-semibold leading-snug">Workspace GHL</h3>
+                <span class="self-start pill pill-violet">Setup</span>
+                <span class="self-start pill pill-cyan">2 usuarios</span>
+                <p class="desc">Subcuenta GHL operativa con Cynthia y Xochitl. Boceto del flujo HT/LT validado.</p>
+              </div>
+            </div>
+            <div class="flex items-center text-white/30 px-1">▸</div>
+
+            <div class="stage-card">
+              <div class="accent" style="background: linear-gradient(90deg, #7c3aed, #a78bfa);"></div>
+              <div class="body">
+                <span class="font-mono text-[10px] uppercase tracking-wider text-white/60">Pieza 2</span>
+                <h3 class="display text-base font-semibold leading-snug">Pipeline + canales</h3>
+                <span class="self-start pill pill-violet">Estructura comercial</span>
+                <span class="self-start pill pill-cyan">Custom Fields</span>
+                <p class="desc">Pipeline con etapas HT/LT. IG/FB/WhatsApp/TikTok centralizados en GHL. Tags de calificación.</p>
+              </div>
+            </div>
+            <div class="flex items-center text-white/30 px-1">▸</div>
+
+            <div class="stage-card">
+              <div class="accent" style="background: linear-gradient(90deg, #06b6d4, #22d3ee);"></div>
+              <div class="body">
+                <span class="font-mono text-[10px] uppercase tracking-wider text-white/60">Pieza 3</span>
+                <h3 class="display text-base font-semibold leading-snug">Bot calificador</h3>
+                <span class="self-start pill pill-cyan">Bot Goals V2</span>
+                <span class="self-start pill pill-cyan">Knowledge Base</span>
+                <p class="desc">Bot calificador HT/LT en sandbox con las 3-5 preguntas. Voz y tono de Cynthia. KB cargada.</p>
+              </div>
+            </div>
+            <div class="flex items-center text-white/30 px-1">▸</div>
+
+            <div class="stage-card">
+              <div class="accent" style="background: linear-gradient(90deg, #06b6d4, #22d3ee);"></div>
+              <div class="body">
+                <span class="font-mono text-[10px] uppercase tracking-wider text-white/60">Pieza 4</span>
+                <h3 class="display text-base font-semibold leading-snug">Agenda + follow-up</h3>
+                <span class="self-start pill pill-cyan">Google Calendar sync</span>
+                <span class="self-start pill pill-cyan">Follow-up HT</span>
+                <p class="desc">Calendario GHL ↔ Google. Recordatorios automáticos. Workflow de seguimiento con la voz de Cynthia.</p>
+              </div>
+            </div>
+            <div class="flex items-center text-white/30 px-1">▸</div>
+
+            <div class="stage-card glow-emerald">
+              <div class="accent" style="background: linear-gradient(90deg, #10b981, #34d399);"></div>
+              <div class="body">
+                <span class="font-mono text-[10px] uppercase tracking-wider text-white/60">Reunión 3</span>
+                <h3 class="display text-base font-semibold leading-snug">Bot live · Handoff</h3>
+                <span class="self-start pill pill-emerald">Bot en producción</span>
+                <span class="self-start pill pill-emerald">Training grabado</span>
+                <p class="desc">Bot en producción. Sistema end-to-end operativo. Training grabado para Cynthia y Xochitl.</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 07 · HORAS AHORRADAS -->
+    <section id="horas" class="mb-20 md:mb-24 scroll-mt-12">
+      <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-emerald-300 mb-3">07 · Horas ahorradas</p>
+      <h2 class="display text-2xl md:text-4xl font-bold tracking-tight mb-3">Horas/semana que recuperás</h2>
+      <p class="serif-italic text-white/85 mb-8 max-w-3xl">Estimaciones conservadoras. Cada entregable reduce horas reales, no KPIs en un Excel.</p>
+
+      <div class="diagram-card">
+        <table class="step-table">
+          <thead><tr><th>Actividad automatizada</th><th>Hs/semana ahorradas</th><th>Quién recupera el tiempo</th></tr></thead>
+          <tbody>
+            <tr><td>Responder mensajes 24/7 (incl. 1am)</td><td><span class="pill pill-emerald">~8 hs</span></td><td>Cynthia — sale del chat nocturno</td></tr>
+            <tr><td>Calificar leads / filtrar "quebrados"</td><td><span class="pill pill-emerald">~4 hs</span></td><td>Cynthia + Xochitl — solo pasan los que califican</td></tr>
+            <tr><td>Coordinar y recordar la agenda</td><td><span class="pill pill-emerald">~3 hs</span></td><td>Cynthia + Xochitl — cero empalmes, cero recordatorios manuales</td></tr>
+            <tr><td>Seguimiento manual a High Ticket</td><td><span class="pill pill-emerald">~3 hs</span></td><td>Cynthia — el bot hace el follow-up con su voz</td></tr>
+            <tr style="background: rgba(16, 185, 129, 0.06);"><td style="color: #fff; font-weight: 600;">Total estimado</td><td><span class="pill pill-emerald" style="font-weight:600;">~18 hs/semana</span></td><td>Para volver a tus sesiones de mentoría, no al chat</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 08 · INVERSIÓN -->
+    <section id="pricing" class="mb-20 md:mb-24 scroll-mt-12">
+      <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-amber-300 mb-3">08 · Inversión</p>
+      <h2 class="display text-2xl md:text-4xl font-bold tracking-tight mb-3">Pricing transparente</h2>
+      <p class="serif-italic text-white/85 mb-8 max-w-3xl">Un número fijo de software mensual + implementación one-time. El número que pediste: claro y sin sorpresas.</p>
+
+      <!-- Recurrente -->
+      <div class="diagram-card mb-5">
+        <div class="flex items-center justify-between mb-4 flex-wrap gap-2">
+          <div>
+            <span class="font-mono text-[10px] uppercase tracking-wider text-white/60">Recurrente</span>
+            <h3 class="display text-xl font-semibold mt-1">Mensual</h3>
+          </div>
+          <span class="pill pill-cyan">Número fijo, sin sorpresas</span>
+        </div>
+        <div>
+          <div class="pricing-row">
+            <div>
+              <p class="font-medium">GHL · cuenta (2 usuarios)</p>
+              <p class="text-xs text-white/55 mt-0.5">Pipeline · workflows · bot · agenda · soporte — incluye créditos para emails/SMS</p>
+            </div>
+            <p class="font-mono text-lg font-semibold">USD 30<span class="text-xs text-white/55 font-normal">/mes</span></p>
+          </div>
+          <div class="pricing-row">
+            <div>
+              <p class="font-medium">WhatsApp <span class="text-xs text-white/55">(opcional · decisión pre-arranque)</span></p>
+              <p class="text-xs text-white/55 mt-0.5">No oficial USD 39/mes flat · solo si activás WhatsApp para High Ticket</p>
+            </div>
+            <p class="font-mono text-lg font-semibold">USD 39<span class="text-xs text-white/55 font-normal">/mes</span></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- One-time -->
+      <div class="diagram-card relative overflow-hidden glow-violet" style="background: linear-gradient(135deg, rgba(124, 58, 237, 0.18), rgba(34, 211, 238, 0.06)); border-color: rgba(139, 92, 246, 0.4);">
+        <div class="absolute top-0 right-0 px-3 py-1 text-[10px] font-mono uppercase tracking-wider bg-violet-600 text-white rounded-bl-xl">Paquete de arranque</div>
+        <span class="font-mono text-[10px] uppercase tracking-wider text-violet-300">One-time</span>
+        <h3 class="display text-2xl md:text-3xl font-bold mt-1 mb-1">Implementación</h3>
+        <p class="display text-5xl md:text-6xl font-bold tracking-tight mb-5"><span class="text-violet-200/80">USD</span> <span class="gradient-text">950</span></p>
+        <p class="text-sm text-white/80 mb-4 font-medium">Lo que está incluido:</p>
+        <div class="grid md:grid-cols-2 gap-2.5 text-sm">
+          <div class="flex gap-2"><span class="text-emerald-400 shrink-0 mt-0.5">✓</span><span>Documento de onboarding — lo completás async, sin reunión</span></div>
+          <div class="flex gap-2"><span class="text-emerald-400 shrink-0 mt-0.5">✓</span><span>1 reunión de validación de la estructura</span></div>
+          <div class="flex gap-2"><span class="text-emerald-400 shrink-0 mt-0.5">✓</span><span>2 reuniones de entrenamiento de la plataforma</span></div>
+          <div class="flex gap-2"><span class="text-emerald-400 shrink-0 mt-0.5">✓</span><span>Bot calificador HT/LT 24/7</span></div>
+          <div class="flex gap-2"><span class="text-emerald-400 shrink-0 mt-0.5">✓</span><span>Agenda ↔ Google Calendar + recordatorios</span></div>
+          <div class="flex gap-2"><span class="text-emerald-400 shrink-0 mt-0.5">✓</span><span>Pipeline + estructura comercial</span></div>
+          <div class="flex gap-2"><span class="text-emerald-400 shrink-0 mt-0.5">✓</span><span>Seguimiento con tu voz</span></div>
+          <div class="flex gap-2"><span class="text-emerald-400 shrink-0 mt-0.5">✓</span><span>Entrenamiento grabado para vos + Xochitl</span></div>
+          <div class="flex gap-2"><span class="text-emerald-400 shrink-0 mt-0.5">✓</span><span>Iteración pulgar arriba/abajo (1-2 semanas)</span></div>
+          <div class="flex gap-2"><span class="text-emerald-400 shrink-0 mt-0.5">✓</span><span>Soporte WhatsApp todo el mes</span></div>
+          <div class="flex gap-2"><span class="text-emerald-400 shrink-0 mt-0.5">✓</span><span>Plataforma 100% tuya (sin retención)</span></div>
+        </div>
+      </div>
+
+      <!-- Total -->
+      <div class="diagram-card mt-5 glow-emerald" style="border-color: rgba(16, 185, 129, 0.35);">
+        <div class="flex flex-wrap items-baseline justify-between gap-2 mb-1">
+          <p class="font-mono text-[10px] uppercase tracking-wider text-white/60">Total arranque</p>
+          <p class="display text-2xl md:text-3xl font-bold text-emerald-300">USD 980</p>
+        </div>
+        <p class="text-xs text-white/55">USD 950 implementación + USD 30 GHL · Desde el mes 2 solo USD 30/mes (USD 69 si activás WhatsApp).</p>
+      </div>
+    </section>
+
+    <!-- 09 · RIESGOS -->
+    <section id="riesgos" class="mb-20 md:mb-24 scroll-mt-12">
+      <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-amber-300 mb-3">09 · Transparencia</p>
+      <h2 class="display text-2xl md:text-4xl font-bold tracking-tight mb-3">Qué puede salir mal — y qué hacemos</h2>
+      <p class="serif-italic text-white/85 mb-8 max-w-3xl">Identificados antes de empezar. Cada uno con plan de mitigación concreto.</p>
+
+      <div class="risk-card">
+        <div class="flex items-start gap-3">
+          <span class="font-mono text-xs text-amber-300 font-semibold mt-0.5">R1</span>
+          <div>
+            <p class="font-medium mb-1">WhatsApp en beta — ads aún no maduros</p>
+            <p class="text-sm text-white/75"><span class="text-amber-300 font-semibold">Mitigación:</span> arrancamos sin depender de WhatsApp. El bot opera en los canales ya activos (IG/DM). Cuando los ads a WhatsApp maduren, se conecta — no cambia nada del sistema armado.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="risk-card">
+        <div class="flex items-start gap-3">
+          <span class="font-mono text-xs text-amber-300 font-semibold mt-0.5">R2</span>
+          <div>
+            <p class="font-medium mb-1">Que el bot no suene a Cynthia</p>
+            <p class="text-sm text-white/75"><span class="text-amber-300 font-semibold">Mitigación:</span> 1-2 semanas de iteración con pulgar arriba/abajo incluidas en el paquete. Cynthia lo prueba como si fuera un lead y lo corrige hasta que hable con su lenguaje — sin saber técnica.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="risk-card">
+        <div class="flex items-start gap-3">
+          <span class="font-mono text-xs text-amber-300 font-semibold mt-0.5">R3</span>
+          <div>
+            <p class="font-medium mb-1">Adopción de Xochitl desde México</p>
+            <p class="text-sm text-white/75"><span class="text-amber-300 font-semibold">Mitigación:</span> enseñamos primero lo simple — el 90% del valor. Training grabado para que Xochitl lo vea a su ritmo. Sumamos detalle a medida que se familiarizan, sin tirar todo de golpe.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="risk-card">
+        <div class="flex items-start gap-3">
+          <span class="font-mono text-xs text-amber-300 font-semibold mt-0.5">R4</span>
+          <div>
+            <p class="font-medium mb-1">Mercado US nuevo — no se conoce al comprador</p>
+            <p class="text-sm text-white/75"><span class="text-amber-300 font-semibold">Mitigación:</span> la calificación HT/LT y la data que el sistema devuelve a Meta permiten afinar a quién atraés con el tiempo. El sistema aprende junto con los ads — no es estático.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10 · PRÓXIMOS PASOS -->
+    <section id="next" class="mb-20 md:mb-24 scroll-mt-12">
+      <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-emerald-300 mb-3">10 · Próximos pasos</p>
+      <h2 class="display text-2xl md:text-4xl font-bold tracking-tight mb-3">Cómo empezamos</h2>
+      <p class="serif-italic text-white/85 mb-8 max-w-3xl">Cinco pasos claros para arrancar. Casi todo async, sin reuniones extra hasta que esté todo armado.</p>
+
+      <div class="space-y-3">
+        <div class="diagram-card flex items-start gap-4" style="padding: 18px;">
+          <span class="step-num">1</span>
+          <div class="flex-1 pt-1"><p class="text-sm">Confirmás aceptación.</p></div>
+        </div>
+        <div class="diagram-card flex items-start gap-4" style="padding: 18px;">
+          <span class="step-num">2</span>
+          <div class="flex-1 pt-1"><p class="text-sm">Te mando el documento de onboarding para que lo completes cuando puedas (async). Ahí también decidimos WhatsApp — activar ahora o esperar a que maduren los ads.</p></div>
+        </div>
+        <div class="diagram-card flex items-start gap-4" style="padding: 18px;">
+          <span class="step-num">3</span>
+          <div class="flex-1 pt-1"><p class="text-sm">Con tu data armo el bot + la estructura comercial.</p></div>
+        </div>
+        <div class="diagram-card flex items-start gap-4" style="padding: 18px;">
+          <span class="step-num">4</span>
+          <div class="flex-1 pt-1"><p class="text-sm">Reunión 1: te muestro todo armado y validamos juntos.</p></div>
+        </div>
+        <div class="diagram-card flex items-start gap-4 glow-emerald" style="padding: 18px; border-color: rgba(16, 185, 129, 0.35);">
+          <span class="step-num" style="background: rgba(16,185,129,0.15); border-color: rgba(16,185,129,0.4); color: rgb(167,243,208);">5</span>
+          <div class="flex-1 pt-1"><p class="text-sm font-medium">Reuniones 2 y 3: te enseño a manejar la plataforma. Listo.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="mt-20 pt-10 border-t border-white/[0.06]">
+      <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+        <div>
+          <p class="display font-bold text-base">Andrés Linares</p>
+          <p class="text-sm text-white/65">ALCONSULTING · Implementación GHL + IA</p>
+        </div>
+        <p class="font-mono text-[10px] uppercase tracking-wider text-white/40">Propuesta v2.0 · Cynthia La Regia · Junio 2026</p>
+      </div>
+    </footer>
+
+  </main>
+
+</div>
+
+<!-- STICKY CTA MOBILE -->
+<div class="lg:hidden fixed bottom-0 inset-x-0 z-40 bg-bg/95 backdrop-blur-md border-t border-white/[0.06] p-3" style="background: rgba(10, 10, 15, 0.95);">
+  <a href="#pricing" class="flex items-center justify-center gap-2 w-full px-5 py-3 rounded-xl bg-violet-600 hover:bg-violet-500 text-white font-medium transition glow-violet">
+    Ver inversión
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+  </a>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Propuesta v1.0 · Cynthia La Regia · ALCONSULTING</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=Geist+Mono:wght@400;500&family=Source+Serif+4:ital,wght@1,400;1,500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #14141c;
+    --surface-2: #1a1a24;
+    --border: rgba(255,255,255,0.06);
+    --border-strong: rgba(255,255,255,0.10);
+    --violet: #7c3aed;
+  }
+  body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: #f5f5fa; -webkit-font-smoothing: antialiased; }
+  .display { font-family: 'Space Grotesk', system-ui, sans-serif; }
+  .font-mono { font-family: 'Geist Mono', ui-monospace, monospace; }
+  .serif-italic { font-family: 'Source Serif 4', Georgia, serif; font-style: italic; }
+  html { scroll-behavior: smooth; }
+
+  .grain { position: fixed; inset: 0; pointer-events: none; opacity: 0.025; background-image: radial-gradient(#fff 1px, transparent 1px); background-size: 4px 4px; z-index: 1; }
+
+  .gradient-text { background: linear-gradient(135deg, #7c3aed 0%, #22d3ee 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+  .glow-violet { box-shadow: 0 0 60px -15px rgba(124, 58, 237, 0.5); }
+  .glow-emerald { box-shadow: 0 0 30px -15px rgba(16, 185, 129, 0.4); }
+
+  .toc-link { transition: color 0.15s, border-color 0.15s; }
+  .toc-link:hover { color: rgb(255 255 255); border-left-color: rgb(139 92 246); }
+
+  .diagram-card { background: rgba(20, 20, 28, 0.6); border: 1px solid var(--border); border-radius: 24px; padding: 28px; backdrop-filter: blur(8px); }
+  @media (min-width: 768px) { .diagram-card { padding: 32px; } }
+
+  .pill { display: inline-block; padding: 3px 9px; border-radius: 6px; font-size: 11px; font-family: 'Geist Mono', ui-monospace, monospace; font-weight: 500; }
+  .pill-violet  { background: rgba(139, 92, 246, 0.15); border: 1px solid rgba(139, 92, 246, 0.35); color: rgb(196, 181, 253); }
+  .pill-amber   { background: rgba(245, 158, 11, 0.15); border: 1px solid rgba(245, 158, 11, 0.35); color: rgb(252, 211, 77); }
+  .pill-cyan    { background: rgba(6, 182, 212, 0.15);  border: 1px solid rgba(6, 182, 212, 0.35);  color: rgb(165, 243, 252); }
+  .pill-emerald { background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.35); color: rgb(167, 243, 208); }
+  .pill-zinc    { background: rgba(113, 113, 122, 0.15); border: 1px solid rgba(113, 113, 122, 0.35); color: rgb(212, 212, 216); }
+
+  .step-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .step-table td {
+    padding: 12px 14px; vertical-align: top;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    color: rgba(255, 255, 255, 0.92); line-height: 1.6;
+  }
+  .step-table td:first-child { font-weight: 500; width: 220px; font-family: 'Inter', sans-serif; color: #fff; }
+  .step-table tr:last-child td { border-bottom: none; }
+
+  .phase-card {
+    flex-shrink: 0; width: 220px; border-radius: 14px;
+    background: linear-gradient(135deg, #14141c 0%, #0c0c14 100%);
+    border: 1px solid var(--border-strong);
+    padding: 16px; display: flex; flex-direction: column; gap: 8px;
+    transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+  }
+  .phase-card:hover { transform: translateY(-3px); border-color: rgba(139, 92, 246, 0.4); box-shadow: 0 0 30px -15px rgba(124, 58, 237, 0.3); }
+
+  .pillar { transition: all 0.25s ease; background: rgba(20, 20, 28, 0.6); border: 1px solid var(--border); border-radius: 18px; padding: 24px; }
+  .pillar:hover { transform: translateY(-4px); border-color: rgba(139, 92, 246, 0.4); box-shadow: 0 0 40px -15px rgba(124, 58, 237, 0.3); }
+  .pillar-icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; }
+
+  .pricing-row { display: grid; grid-template-columns: 1fr auto; gap: 16px; align-items: center; padding: 14px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.04); }
+  .pricing-row:last-child { border-bottom: 0; }
+
+  .step-num { width: 36px; height: 36px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-family: 'Geist Mono', monospace; font-weight: 600; font-size: 14px; background: rgba(139, 92, 246, 0.15); border: 1px solid rgba(139, 92, 246, 0.4); color: rgb(196, 181, 253); flex-shrink: 0; }
+
+  blockquote.pull-quote {
+    border-left: 3px solid rgba(139, 92, 246, 0.6);
+    padding: 6px 0 6px 18px;
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.92);
+    line-height: 1.65;
+    font-size: 1rem;
+  }
+  @media (min-width: 768px) { blockquote.pull-quote { font-size: 1.05rem; } }
+
+  @media (max-width: 768px) { main { padding-bottom: 6rem; } }
+</style>
+</head>
+<body class="antialiased min-h-screen relative">
+
+<div class="grain"></div>
+<div class="fixed inset-0 pointer-events-none z-0" style="background: radial-gradient(ellipse 80% 50% at 50% -10%, rgba(139, 92, 246, 0.12), transparent 60%);"></div>
+
+<div class="relative max-w-[1400px] mx-auto flex z-10">
+
+  <!-- TOC SIDEBAR -->
+  <aside class="hidden lg:block w-60 shrink-0 sticky top-0 h-screen pt-20 px-6 overflow-y-auto bg-[#0c0c12]/80 backdrop-blur-md border-r border-white/[0.06]">
+    <div class="flex items-center gap-2 mb-5">
+      <div class="w-7 h-7 rounded-lg bg-gradient-to-br from-violet-500 to-cyan-400 flex items-center justify-center font-display font-bold text-black text-xs">AL</div>
+      <p class="font-mono text-[10px] uppercase tracking-[0.2em] text-white">Propuesta v1.0</p>
+    </div>
+    <nav class="space-y-0.5">
+      <a href="#cliente" class="toc-link block py-2 px-3 text-sm text-white/80 border-l border-transparent">01 · Cliente</a>
+      <a href="#diagnostico" class="toc-link block py-2 px-3 text-sm text-white/80 border-l border-transparent">02 · Diagnóstico</a>
+      <a href="#entregamos" class="toc-link block py-2 px-3 text-sm text-white/80 border-l border-transparent">03 · Qué entregamos</a>
+      <a href="#recorrido" class="toc-link block py-2 px-3 text-sm text-white/80 border-l border-transparent">04 · Cómo trabajamos</a>
+      <a href="#pricing" class="toc-link block py-2 px-3 text-sm text-white/80 border-l border-transparent">05 · Inversión</a>
+      <a href="#next" class="toc-link block py-2 px-3 text-sm text-white/80 border-l border-transparent">06 · Próximos pasos</a>
+    </nav>
+
+    <div class="mt-10 pt-6 border-t border-white/[0.06]">
+      <p class="font-mono text-[10px] uppercase tracking-wider text-white/60 mb-2">Cliente</p>
+      <p class="text-sm text-white">Cynthia La Regia</p>
+      <p class="text-xs text-white/60">Cynthia · Xochitl</p>
+    </div>
+    <div class="mt-4">
+      <p class="font-mono text-[10px] uppercase tracking-wider text-white/60 mb-2">Stack</p>
+      <p class="text-sm text-white">GHL · 2 usuarios</p>
+      <p class="text-xs text-white/60">Conversation AI V2 · Google Calendar</p>
+    </div>
+    <div class="mt-4">
+      <p class="font-mono text-[10px] uppercase tracking-wider text-white/60 mb-2">Equipo</p>
+      <p class="text-sm text-white">Andrés Linares</p>
+      <p class="text-xs text-white/60">ALCONSULTING</p>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="flex-1 px-5 md:px-10 py-10 md:py-20 max-w-[1100px]">
+
+    <!-- HEADER STICKY (mobile) -->
+    <div class="lg:hidden sticky top-0 z-50 -mx-5 mb-8 bg-bg/85 backdrop-blur-md border-b border-white/[0.06]">
+      <div class="px-5 py-3 flex items-center justify-between gap-4">
+        <div class="flex items-center gap-3 min-w-0">
+          <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-cyan-400 flex items-center justify-center shrink-0 font-display font-bold text-black text-xs">AL</div>
+          <div class="min-w-0">
+            <div class="text-[10px] text-white/50 uppercase tracking-wider font-mono">Propuesta v1.0</div>
+            <div class="display font-semibold text-sm truncate">Cynthia La Regia</div>
+          </div>
+        </div>
+        <span class="shrink-0 pill pill-violet">v1.0</span>
+      </div>
+    </div>
+
+    <!-- HEADER HERO -->
+    <header class="mb-16 md:mb-24">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.04] border border-white/[0.08] text-xs text-white/80 mb-6">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span class="font-mono text-[11px]">Implementación · Solo 3 reuniones, el resto async</span>
+      </div>
+      <h1 class="display text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.02]">
+        De contestar mensajes a la 1am<br />
+        a un proceso comercial<br />
+        <span class="gradient-text">que califica y agenda solo</span>.
+      </h1>
+      <p class="mt-7 text-lg md:text-xl text-white/85 max-w-2xl leading-relaxed">
+        Armamos el bot que filtra High Ticket de Low Ticket, agenda en tu Google Calendar y hace el seguimiento con tu voz. Casi todo lo hacemos async para no robarte tiempo: completás un documento, armamos todo, y solo nos vemos 3 veces.
+      </p>
+      <blockquote class="pull-quote mt-7 max-w-3xl">
+        No voy a querer ser yo la que se ponga a contestar mensajes.
+        <span class="block not-italic font-sans text-xs text-white/55 mt-2">— Cynthia · reunión 1</span>
+      </blockquote>
+      <div class="flex flex-wrap gap-2 mt-7">
+        <span class="pill pill-violet">Solo 3 reuniones</span>
+        <span class="pill pill-violet">Bot calificador 24/7</span>
+        <span class="pill pill-cyan">HT vs LT automático</span>
+        <span class="pill pill-emerald">Agenda ↔ Google Calendar</span>
+        <span class="pill pill-amber">USD 950</span>
+      </div>
+      <div class="flex flex-wrap gap-3 mt-8">
+        <a href="#recorrido" class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-violet-600 hover:bg-violet-500 text-white font-medium transition glow-violet">
+          Ver el recorrido
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+        </a>
+        <a href="#pricing" class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.10] text-white font-medium transition">
+          Ver inversión
+        </a>
+      </div>
+    </header>
+
+    <!-- 01 · CLIENTE -->
+    <section id="cliente" class="mb-20 md:mb-24 scroll-mt-12">
+      <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-violet-300 mb-3">01 · Cliente</p>
+      <h2 class="display text-2xl md:text-4xl font-bold tracking-tight mb-3">Cynthia La Regia</h2>
+      <p class="serif-italic text-white/85 mb-8 max-w-3xl">Mentorías de negocio high-ticket. Migrando del mercado MX al mercado US con ads pagos en Meta y TikTok.</p>
+
+      <div class="diagram-card">
+        <table class="step-table">
+          <tbody>
+            <tr><td>Negocio</td><td>Mentorías de negocio high-ticket · mercado US</td></tr>
+            <tr><td>Equipo</td><td><span class="pill pill-violet">Cynthia</span> <span class="pill pill-violet">Xochitl</span></td></tr>
+            <tr><td>Canales</td><td>Instagram · Facebook · WhatsApp · TikTok (ads en beta)</td></tr>
+            <tr><td>Stack actual</td><td><span class="pill pill-amber">Sin CRM</span> <span class="pill pill-zinc">WhatsApp manual</span> <span class="pill pill-zinc">Agenda suelta</span></td></tr>
+            <tr><td>Implementador</td><td><span class="pill pill-cyan">Andrés Linares</span> · ALCONSULTING</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 02 · DIAGNÓSTICO -->
+    <section id="diagnostico" class="mb-20 md:mb-24 scroll-mt-12">
+      <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-violet-300 mb-3">02 · Diagnóstico</p>
+      <h2 class="display text-2xl md:text-4xl font-bold tracking-tight mb-3">Dónde está hoy</h2>
+      <p class="serif-italic text-white/85 mb-8 max-w-3xl">Tres cuellos de botella que el sistema va a resolver desde el día uno.</p>
+
+      <div class="grid md:grid-cols-3 gap-4">
+        <div class="pillar">
+          <p class="font-mono text-[10px] uppercase tracking-wider text-amber-300 mb-3">Horario de respuesta</p>
+          <p class="display text-4xl font-bold gradient-text mb-2">1am</p>
+          <p class="text-sm text-white/80">El horario en que escriben sus leads. Hoy contesta ella misma — el bot va a responder 24/7.</p>
+        </div>
+        <div class="pillar">
+          <p class="font-mono text-[10px] uppercase tracking-wider text-cyan-300 mb-3">Filtro de calidad</p>
+          <p class="display text-4xl font-bold gradient-text mb-2">HT/LT</p>
+          <p class="text-sm text-white/80">Leads sin filtrar llegan mezclados. Perdés tiempo con "quebrados" que no pueden pagar 3-5k USD.</p>
+        </div>
+        <div class="pillar">
+          <p class="font-mono text-[10px] uppercase tracking-wider text-violet-300 mb-3">Empalmes de agenda</p>
+          <p class="display text-4xl font-bold gradient-text mb-2">2×</p>
+          <p class="text-sm text-white/80">Citas que se empalman en una sola semana. La agenda sincronizada con Google Calendar lo resuelve.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03 · QUÉ ENTREGAMOS -->
+    <section id="entregamos" class="mb-20 md:mb-24 scroll-mt-12">
+      <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-cyan-300 mb-3">03 · Qué entregamos</p>
+      <h2 class="display text-2xl md:text-4xl font-bold tracking-tight mb-3">El paquete de arranque</h2>
+      <p class="serif-italic text-white/85 mb-8 max-w-3xl">Cuatro entregables tangibles que dejamos andando antes de que termine la implementación.</p>
+
+      <div class="grid md:grid-cols-2 gap-4">
+        <div class="pillar">
+          <div class="pillar-icon mb-4" style="background: rgba(139, 92, 246, 0.15);">
+            <svg class="w-6 h-6 text-violet-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2 1 3 3 3h10c2 0 3-1 3-3V7c0-2-1-3-3-3H7C5 4 4 5 4 7z M4 9h16"/></svg>
+          </div>
+          <span class="pill pill-violet mb-2 inline-block">01 · Setup</span>
+          <h3 class="display font-semibold text-lg mb-2 mt-2">GHL operativo</h3>
+          <p class="text-sm text-white/80">Cuenta con 2 usuarios (Cynthia + Xochitl) dados de alta y entrenados, branding aplicado, todo centralizado — IG/FB/WhatsApp/TikTok en un solo lugar.</p>
+        </div>
+        <div class="pillar">
+          <div class="pillar-icon mb-4" style="background: rgba(139, 92, 246, 0.15);">
+            <svg class="w-6 h-6 text-violet-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4-4 7-9 7-1.5 0-3-.3-4-.8L3 20l1-4c-.5-1-1-2.5-1-4 0-4 4-7 9-7s9 3 9 7z"/></svg>
+          </div>
+          <span class="pill pill-violet mb-2 inline-block">02 · Bot</span>
+          <h3 class="display font-semibold text-lg mb-2 mt-2">Calificador HT/LT</h3>
+          <p class="text-sm text-white/80">Conversation AI V2 que precalifica con 3-5 preguntas, separa High Ticket de Low Ticket, responde 24/7 — incluso a la 1am.</p>
+        </div>
+        <div class="pillar">
+          <div class="pillar-icon mb-4" style="background: rgba(6, 182, 212, 0.15);">
+            <svg class="w-6 h-6 text-cyan-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+          </div>
+          <span class="pill pill-cyan mb-2 inline-block">03 · Agenda</span>
+          <h3 class="display font-semibold text-lg mb-2 mt-2">Agenda inteligente</h3>
+          <p class="text-sm text-white/80">Calendario GHL sincronizado con Google Calendar. Recordatorios automáticos día antes + 2h. Confirma o cae la cita sola — no más empalmes.</p>
+        </div>
+        <div class="pillar">
+          <div class="pillar-icon mb-4" style="background: rgba(16, 185, 129, 0.15);">
+            <svg class="w-6 h-6 text-emerald-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12h4l3-9 4 18 3-9h4"/></svg>
+          </div>
+          <span class="pill pill-emerald mb-2 inline-block">04 · Seguimiento</span>
+          <h3 class="display font-semibold text-lg mb-2 mt-2">Con tu voz + entrenamiento</h3>
+          <p class="text-sm text-white/80">Follow-up que lee la conversación y escribe personalizado con el lenguaje de Cynthia. Pipeline comercial. Entrenamiento grabado + iteración pulgar arriba/abajo.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 · CÓMO TRABAJAMOS -->
+    <section id="recorrido" class="mb-20 md:mb-24 scroll-mt-12">
+      <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-violet-300 mb-3">04 · Cómo trabajamos</p>
+      <h2 class="display text-2xl md:text-4xl font-bold tracking-tight mb-3">Casi todo async, solo 3 reuniones</h2>
+      <p class="serif-italic text-white/85 mb-8 max-w-3xl">Vos completás un documento, yo armo todo, y solo nos vemos en vivo 3 veces. Tu tiempo se respeta de arranque.</p>
+
+      <div class="diagram-card">
+        <div class="flex items-center justify-between mb-5">
+          <p class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/60">Implementación · 3 reuniones</p>
+          <p class="font-mono text-[10px] text-white/40">scroll →</p>
+        </div>
+        <div class="overflow-x-auto pb-3 -mx-6 px-6 md:-mx-8 md:px-8">
+          <div class="flex gap-3 items-stretch min-w-max">
+
+            <div class="phase-card">
+              <span class="font-mono text-[10px] uppercase tracking-wider text-cyan-300">Etapa 0</span>
+              <h3 class="display text-sm font-semibold text-white">Documento de onboarding</h3>
+              <span class="self-start pill pill-zinc">Async · sin reunión</span>
+              <p class="text-[11px] text-white/75 leading-relaxed mt-1">Completás un doc con toda la data del negocio cuando puedas.</p>
+            </div>
+            <div class="flex items-center text-white/30 px-1">▸</div>
+
+            <div class="phase-card">
+              <span class="font-mono text-[10px] uppercase tracking-wider text-cyan-300">Etapa 1</span>
+              <h3 class="display text-sm font-semibold text-white">Construcción</h3>
+              <span class="self-start pill pill-zinc">Async · sin reunión</span>
+              <p class="text-[11px] text-white/75 leading-relaxed mt-1">Con tu data armo el bot + estructura comercial + agenda.</p>
+            </div>
+            <div class="flex items-center text-white/30 px-1">▸</div>
+
+            <div class="phase-card">
+              <span class="font-mono text-[10px] uppercase tracking-wider text-violet-300">Reunión 1</span>
+              <h3 class="display text-sm font-semibold text-white">Validación</h3>
+              <span class="self-start pill pill-violet">Reunión 1</span>
+              <p class="text-[11px] text-white/75 leading-relaxed mt-1">Ves todo armado, ajustamos en vivo, validás.</p>
+            </div>
+            <div class="flex items-center text-white/30 px-1">▸</div>
+
+            <div class="phase-card">
+              <span class="font-mono text-[10px] uppercase tracking-wider text-violet-300">Reunión 2</span>
+              <h3 class="display text-sm font-semibold text-white">Entrenamiento · parte 1</h3>
+              <span class="self-start pill pill-violet">Reunión 2</span>
+              <p class="text-[11px] text-white/75 leading-relaxed mt-1">Manejo de la plataforma, primera parte.</p>
+            </div>
+            <div class="flex items-center text-white/30 px-1">▸</div>
+
+            <div class="phase-card" style="border-color: rgba(16, 185, 129, 0.4); box-shadow: 0 0 20px -10px rgba(16, 185, 129, 0.3);">
+              <span class="font-mono text-[10px] uppercase tracking-wider text-emerald-300">Reunión 3</span>
+              <h3 class="display text-sm font-semibold text-white">Entrenamiento · parte 2 + cierre</h3>
+              <span class="self-start pill pill-emerald">Reunión 3 · cierre</span>
+              <p class="text-[11px] text-white/75 leading-relaxed mt-1">Termina el manejo de plataforma, handoff, listo.</p>
+            </div>
+
+          </div>
+        </div>
+        <div class="flex flex-wrap items-center gap-6 mt-6 pt-4 border-t border-white/[0.04]">
+          <div class="flex items-center gap-2 text-xs"><span class="w-3 h-1.5 rounded-sm bg-zinc-400/80"></span><span class="text-white/70">Async · sin reunión (2)</span></div>
+          <div class="flex items-center gap-2 text-xs"><span class="w-3 h-1.5 rounded-sm bg-violet-400/80"></span><span class="text-white/70">Solo 3 implican reunión</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05 · INVERSIÓN -->
+    <section id="pricing" class="mb-20 md:mb-24 scroll-mt-12">
+      <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-amber-300 mb-3">05 · Inversión</p>
+      <h2 class="display text-2xl md:text-4xl font-bold tracking-tight mb-3">Pricing transparente</h2>
+      <p class="serif-italic text-white/85 mb-8 max-w-3xl">Un número fijo de software mensual + implementación one-time. Sin sorpresas.</p>
+
+      <!-- Recurrente -->
+      <div class="diagram-card mb-5">
+        <div class="flex items-center justify-between mb-4 flex-wrap gap-2">
+          <div>
+            <span class="font-mono text-[10px] uppercase tracking-wider text-white/60">Recurrente</span>
+            <h3 class="display text-xl font-semibold mt-1">Mensual</h3>
+          </div>
+          <span class="pill pill-cyan">Número fijo, sin sorpresas</span>
+        </div>
+        <div>
+          <div class="pricing-row">
+            <div>
+              <p class="font-medium">GHL · cuenta (2 usuarios)</p>
+              <p class="text-xs text-white/55 mt-0.5">Pipeline · workflows · bot · agenda · soporte — incluye créditos para emails/SMS</p>
+            </div>
+            <p class="font-mono text-lg font-semibold">USD 30<span class="text-xs text-white/55 font-normal">/mes</span></p>
+          </div>
+          <div class="pricing-row">
+            <div>
+              <p class="font-medium">WhatsApp <span class="text-xs text-white/55">(opcional · decisión pre-arranque)</span></p>
+              <p class="text-xs text-white/55 mt-0.5">No oficial USD 39/mes flat · solo si activás WhatsApp para High Ticket</p>
+            </div>
+            <p class="font-mono text-lg font-semibold">USD 39<span class="text-xs text-white/55 font-normal">/mes</span></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- One-time -->
+      <div class="diagram-card relative overflow-hidden glow-violet" style="background: linear-gradient(135deg, rgba(124, 58, 237, 0.18), rgba(34, 211, 238, 0.06)); border-color: rgba(139, 92, 246, 0.4);">
+        <div class="absolute top-0 right-0 px-3 py-1 text-[10px] font-mono uppercase tracking-wider bg-violet-600 text-white rounded-bl-xl">Paquete de arranque</div>
+        <span class="font-mono text-[10px] uppercase tracking-wider text-violet-300">One-time</span>
+        <h3 class="display text-2xl md:text-3xl font-bold mt-1 mb-1">Implementación</h3>
+        <p class="display text-5xl md:text-6xl font-bold tracking-tight mb-5"><span class="text-violet-200/80">USD</span> <span class="gradient-text">950</span></p>
+        <p class="text-sm text-white/80 mb-4 font-medium">Lo que está incluido:</p>
+        <div class="grid md:grid-cols-2 gap-2.5 text-sm">
+          <div class="flex gap-2"><span class="text-emerald-400 shrink-0 mt-0.5">✓</span><span>Documento de onboarding — lo completás async, sin reunión</span></div>
+          <div class="flex gap-2"><span class="text-emerald-400 shrink-0 mt-0.5">✓</span><span>1 reunión de validación de la estructura</span></div>
+          <div class="flex gap-2"><span class="text-emerald-400 shrink-0 mt-0.5">✓</span><span>2 reuniones de entrenamiento de la plataforma</span></div>
+          <div class="flex gap-2"><span class="text-emerald-400 shrink-0 mt-0.5">✓</span><span>Bot calificador HT/LT 24/7</span></div>
+          <div class="flex gap-2"><span class="text-emerald-400 shrink-0 mt-0.5">✓</span><span>Agenda ↔ Google Calendar + recordatorios</span></div>
+          <div class="flex gap-2"><span class="text-emerald-400 shrink-0 mt-0.5">✓</span><span>Pipeline + estructura comercial</span></div>
+          <div class="flex gap-2"><span class="text-emerald-400 shrink-0 mt-0.5">✓</span><span>Seguimiento con tu voz</span></div>
+          <div class="flex gap-2"><span class="text-emerald-400 shrink-0 mt-0.5">✓</span><span>Entrenamiento grabado para vos + Xochitl</span></div>
+          <div class="flex gap-2"><span class="text-emerald-400 shrink-0 mt-0.5">✓</span><span>Iteración pulgar arriba/abajo (1-2 semanas)</span></div>
+          <div class="flex gap-2"><span class="text-emerald-400 shrink-0 mt-0.5">✓</span><span>Soporte WhatsApp todo el mes</span></div>
+          <div class="flex gap-2"><span class="text-emerald-400 shrink-0 mt-0.5">✓</span><span>Plataforma 100% tuya (sin retención)</span></div>
+        </div>
+      </div>
+
+      <!-- Total -->
+      <div class="diagram-card mt-5 glow-emerald" style="border-color: rgba(16, 185, 129, 0.35);">
+        <div class="flex flex-wrap items-baseline justify-between gap-2 mb-1">
+          <p class="font-mono text-[10px] uppercase tracking-wider text-white/60">Total arranque</p>
+          <p class="display text-2xl md:text-3xl font-bold text-emerald-300">USD 980</p>
+        </div>
+        <p class="text-xs text-white/55">USD 950 implementación + USD 30 GHL · Desde el mes 2 solo USD 30/mes (USD 69 si activás WhatsApp).</p>
+      </div>
+    </section>
+
+    <!-- 06 · PRÓXIMOS PASOS -->
+    <section id="next" class="mb-20 md:mb-24 scroll-mt-12">
+      <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-emerald-300 mb-3">06 · Próximos pasos</p>
+      <h2 class="display text-2xl md:text-4xl font-bold tracking-tight mb-3">Cómo empezamos</h2>
+      <p class="serif-italic text-white/85 mb-8 max-w-3xl">Cinco pasos claros para arrancar. Casi todo async, sin reuniones extra hasta que esté todo armado.</p>
+
+      <div class="space-y-3">
+        <div class="diagram-card flex items-start gap-4" style="padding: 18px;">
+          <span class="step-num">1</span>
+          <div class="flex-1 pt-1"><p class="text-sm">Confirmás aceptación.</p></div>
+        </div>
+        <div class="diagram-card flex items-start gap-4" style="padding: 18px;">
+          <span class="step-num">2</span>
+          <div class="flex-1 pt-1"><p class="text-sm">Te mando el documento de onboarding para que lo completes cuando puedas (async). Ahí también decidimos WhatsApp — activar ahora o esperar a que maduren los ads.</p></div>
+        </div>
+        <div class="diagram-card flex items-start gap-4" style="padding: 18px;">
+          <span class="step-num">3</span>
+          <div class="flex-1 pt-1"><p class="text-sm">Con tu data armo el bot + la estructura comercial.</p></div>
+        </div>
+        <div class="diagram-card flex items-start gap-4" style="padding: 18px;">
+          <span class="step-num">4</span>
+          <div class="flex-1 pt-1"><p class="text-sm">Reunión 1: te muestro todo armado y validamos juntos.</p></div>
+        </div>
+        <div class="diagram-card flex items-start gap-4 glow-emerald" style="padding: 18px; border-color: rgba(16, 185, 129, 0.35);">
+          <span class="step-num" style="background: rgba(16,185,129,0.15); border-color: rgba(16,185,129,0.4); color: rgb(167,243,208);">5</span>
+          <div class="flex-1 pt-1"><p class="text-sm font-medium">Reuniones 2 y 3: te enseño a manejar la plataforma. Listo.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="mt-20 pt-10 border-t border-white/[0.06]">
+      <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+        <div>
+          <p class="display font-bold text-base">Andrés Linares</p>
+          <p class="text-sm text-white/65">ALCONSULTING · Implementación GHL + IA</p>
+        </div>
+        <p class="font-mono text-[10px] uppercase tracking-wider text-white/40">Propuesta v1.0 · Cynthia La Regia · Junio 2026</p>
+      </div>
+    </footer>
+
+  </main>
+
+</div>
+
+<!-- STICKY CTA MOBILE -->
+<div class="lg:hidden fixed bottom-0 inset-x-0 z-40 backdrop-blur-md border-t border-white/[0.06] p-3" style="background: rgba(10, 10, 15, 0.95);">
+  <a href="#pricing" class="flex items-center justify-center gap-2 w-full px-5 py-3 rounded-xl bg-violet-600 hover:bg-violet-500 text-white font-medium transition glow-violet">
+    Ver inversión
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+  </a>
+</div>
+
+</body>
+</html>
