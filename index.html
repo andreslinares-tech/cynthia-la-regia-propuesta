@@ -2,28 +2,33 @@
 <html lang="es" class="dark">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Propuesta · Cynthia La Regia × ALCONSULTING</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Propuesta · Cynthia La Regia × AL Consulting</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=Geist+Mono:wght@400;500&family=Source+Serif+4:ital,wght@1,400;1,500&display=swap" rel="stylesheet" />
 <style>
-  body { font-family: 'Inter', system-ui, sans-serif; background: #0a0a0f; color: #f5f5fa; -webkit-font-smoothing: antialiased; min-height: 100vh; }
+  * { min-width: 0; }
+  html, body { overflow-x: hidden; }
+  body { font-family: 'Inter', system-ui, sans-serif; background: #0a0a0f; color: #f5f5fa; -webkit-font-smoothing: antialiased; min-height: 100vh; overflow-wrap: break-word; }
   .display { font-family: 'Space Grotesk', system-ui, sans-serif; }
   .font-mono { font-family: 'Geist Mono', ui-monospace, monospace; }
   .serif-italic { font-family: 'Source Serif 4', Georgia, serif; font-style: italic; }
   .gradient-text { background: linear-gradient(135deg, #7c3aed 0%, #22d3ee 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
   .glow-violet { box-shadow: 0 0 60px -15px rgba(124, 58, 237, 0.5); }
-  .glow-cyan { box-shadow: 0 0 50px -15px rgba(34, 211, 238, 0.4); }
+  .glow-emerald { box-shadow: 0 0 40px -15px rgba(16, 185, 129, 0.4); }
   .grain { position: fixed; inset: 0; pointer-events: none; opacity: 0.025; background-image: radial-gradient(#fff 1px, transparent 1px); background-size: 4px 4px; z-index: 1; }
   .pill { display: inline-block; padding: 3px 9px; border-radius: 6px; font-size: 11px; font-family: 'Geist Mono', ui-monospace, monospace; font-weight: 500; }
   .pill-violet { background: rgba(139, 92, 246, 0.15); border: 1px solid rgba(139, 92, 246, 0.35); color: rgb(196, 181, 253); }
   .pill-cyan { background: rgba(6, 182, 212, 0.15); border: 1px solid rgba(6, 182, 212, 0.35); color: rgb(165, 243, 252); }
   .pill-emerald { background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.35); color: rgb(167, 243, 208); }
-  .option-card { background: rgba(20, 20, 28, 0.6); border: 1px solid rgba(255,255,255,0.08); border-radius: 24px; padding: 28px; transition: all 0.3s ease; backdrop-filter: blur(8px); display: block; }
+  .pill-amber { background: rgba(245, 158, 11, 0.15); border: 1px solid rgba(245, 158, 11, 0.35); color: rgb(252, 211, 77); }
+  .option-card { background: rgba(20, 20, 28, 0.6); border: 1px solid rgba(255,255,255,0.08); border-radius: 24px; padding: 24px; transition: all 0.3s ease; backdrop-filter: blur(8px); display: block; }
   .option-card:hover { transform: translateY(-4px); border-color: rgba(139, 92, 246, 0.45); }
-  @media (min-width: 768px) { .option-card { padding: 36px; } }
+  .price-row { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 14px; padding: 13px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+  .price-row:last-child { border-bottom: 0; }
+  @media (min-width: 768px) { .option-card { padding: 34px; } }
 </style>
 </head>
 <body>
@@ -31,26 +36,25 @@
 <div class="grain"></div>
 <div class="fixed inset-0 pointer-events-none z-0" style="background: radial-gradient(ellipse 80% 50% at 50% -10%, rgba(139, 92, 246, 0.14), transparent 60%);"></div>
 
-<div class="relative z-10 max-w-5xl mx-auto px-5 md:px-10 py-12 md:py-20">
+<div class="relative z-10 max-w-5xl mx-auto px-5 sm:px-6 md:px-10 py-12 md:py-20">
 
   <!-- HERO -->
   <header class="mb-12 md:mb-16 text-center">
-    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.04] border border-white/[0.08] text-xs text-white/80 mb-6">
-      <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-      <span class="font-mono text-[11px]">Junio 2026 · Implementación · Solo 3 reuniones, el resto async</span>
+    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.04] border border-white/[0.08] text-xs text-white/80 mb-6 max-w-full">
+      <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shrink-0"></span>
+      <span class="font-mono text-[10px] sm:text-[11px] leading-tight">Junio 2026 · Implementación · Solo 3 reuniones, el resto async</span>
     </div>
     <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-violet-300 mb-4">Propuesta comercial</p>
-    <h1 class="display text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.05] mb-5">
-      Cynthia La Regia<br />
-      <span class="gradient-text">× ALCONSULTING</span>
+    <h1 class="display text-[2rem] sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.08] mb-5">
+      Cynthia La Regia <span class="gradient-text">× AL Consulting</span>
     </h1>
-    <p class="text-lg md:text-xl text-white/85 max-w-2xl mx-auto leading-relaxed serif-italic">
+    <p class="text-base sm:text-lg md:text-xl text-white/85 max-w-2xl mx-auto leading-relaxed serif-italic">
       Hay dos versiones de la propuesta. Mismo precio, mismo alcance — distinto nivel de detalle.
     </p>
   </header>
 
   <!-- OPTIONS -->
-  <div class="grid md:grid-cols-2 gap-5 md:gap-6 mb-12">
+  <div class="grid md:grid-cols-2 gap-5 md:gap-6 mb-10 md:mb-12">
 
     <!-- V1.0 -->
     <a href="propuesta-v1.0-cynthia-la-regia.html" class="option-card group">
@@ -58,10 +62,8 @@
         <span class="pill pill-violet">v1.0</span>
         <span class="font-mono text-[10px] uppercase tracking-wider text-white/60">Esencial</span>
       </div>
-      <h2 class="display text-2xl md:text-3xl font-bold mb-3 leading-tight">
-        De contestar mensajes a la 1am<br />
-        a un proceso<br />
-        <span class="gradient-text">que califica solo</span>.
+      <h2 class="display text-xl sm:text-2xl md:text-3xl font-bold mb-3 leading-tight">
+        De contestar mensajes a la 1am a un proceso <span class="gradient-text">que califica solo</span>.
       </h2>
       <p class="text-sm text-white/75 leading-relaxed mb-5">
         La versión directa al grano. 6 secciones: cliente, diagnóstico, qué entregamos, recorrido, pricing y próximos pasos. Lectura rápida en mobile.
@@ -83,10 +85,8 @@
         <span class="pill pill-cyan">v2.0</span>
         <span class="font-mono text-[10px] uppercase tracking-wider text-cyan-300">★ Recomendada</span>
       </div>
-      <h2 class="display text-2xl md:text-3xl font-bold mb-3 leading-tight">
-        El plan completo:<br />
-        bot, agenda, seguimiento<br />
-        <span class="gradient-text">con tu voz</span>.
+      <h2 class="display text-xl sm:text-2xl md:text-3xl font-bold mb-3 leading-tight">
+        El plan completo: bot, agenda, seguimiento <span class="gradient-text">con tu voz</span>.
       </h2>
       <p class="text-sm text-white/75 leading-relaxed mb-5">
         La versión completa. Detalle bloque a bloque por etapa, deliverables visualizados, horas/semana ahorradas, riesgos identificados con mitigación.
@@ -104,8 +104,53 @@
 
   </div>
 
+  <!-- COSTOS -->
+  <div class="rounded-2xl border border-white/[0.08] bg-white/[0.02] p-6 sm:p-7 md:p-8 max-w-3xl mx-auto mb-8">
+    <p class="font-mono text-[10px] uppercase tracking-[0.2em] text-amber-300 mb-3">Inversión</p>
+    <h3 class="display text-xl font-semibold mb-1">Qué pagás</h3>
+    <p class="text-sm text-white/65 mb-6">Una inversión única de implementación + los costos de software mensuales (van directo a las plataformas).</p>
+
+    <!-- One-time -->
+    <div class="rounded-xl p-5 mb-5 glow-violet" style="background: linear-gradient(135deg, rgba(124, 58, 237, 0.18), rgba(34, 211, 238, 0.05)); border: 1px solid rgba(139, 92, 246, 0.4);">
+      <div class="flex flex-wrap items-end justify-between gap-2">
+        <div>
+          <p class="font-mono text-[10px] uppercase tracking-wider text-violet-300">Pago único</p>
+          <p class="font-medium mt-0.5">Implementación completa</p>
+        </div>
+        <p class="display text-3xl sm:text-4xl font-bold"><span class="text-violet-200/80 text-xl">USD</span> <span class="gradient-text">950</span></p>
+      </div>
+    </div>
+
+    <!-- Mensual -->
+    <p class="font-mono text-[10px] uppercase tracking-wider text-white/55 mb-1">Software mensual</p>
+    <div>
+      <div class="price-row">
+        <div>
+          <p class="font-medium">Cuenta GHL (CRM · 2 usuarios)</p>
+          <p class="text-xs text-white/55 mt-0.5">Pipeline · workflows · bot · agenda · soporte</p>
+        </div>
+        <p class="font-mono text-base sm:text-lg font-semibold whitespace-nowrap">USD 20<span class="text-xs text-white/55 font-normal">/mes</span></p>
+      </div>
+      <div class="price-row">
+        <div>
+          <p class="font-medium">Tokens de IA del bot + emails</p>
+          <p class="text-xs text-white/55 mt-0.5">≈ 2.000 conversaciones (mensajes) del bot · envío de emails</p>
+        </div>
+        <p class="font-mono text-base sm:text-lg font-semibold whitespace-nowrap">USD 20<span class="text-xs text-white/55 font-normal">/mes</span></p>
+      </div>
+      <div class="price-row">
+        <div>
+          <p class="font-medium">WhatsApp <span class="pill pill-amber ml-1">opcional</span></p>
+          <p class="text-xs text-white/55 mt-0.5">No oficial, flat · solo si activás WhatsApp para High Ticket</p>
+        </div>
+        <p class="font-mono text-base sm:text-lg font-semibold whitespace-nowrap">USD 39<span class="text-xs text-white/55 font-normal">/mes</span></p>
+      </div>
+    </div>
+    <p class="text-xs text-white/50 mt-4">Los costos de software se pagan directo a las plataformas (GHL y proveedor de IA), no pasan por AL Consulting.</p>
+  </div>
+
   <!-- SHARED INFO -->
-  <div class="rounded-2xl border border-white/[0.08] bg-white/[0.02] p-6 md:p-8 max-w-3xl mx-auto">
+  <div class="rounded-2xl border border-white/[0.08] bg-white/[0.02] p-6 sm:p-7 md:p-8 max-w-3xl mx-auto">
     <p class="font-mono text-[10px] uppercase tracking-[0.2em] text-emerald-300 mb-3">Lo que ambas comparten</p>
     <h3 class="display text-xl font-semibold mb-4">Mismo alcance, mismo precio</h3>
     <div class="grid sm:grid-cols-2 gap-3 text-sm text-white/85">
@@ -123,7 +168,7 @@
     <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
       <div>
         <p class="display font-bold text-base">Andrés Linares</p>
-        <p class="text-sm text-white/65">ALCONSULTING · Implementación GHL + IA</p>
+        <p class="text-sm text-white/65">AL Consulting · Implementación GHL + IA</p>
       </div>
       <p class="font-mono text-[10px] uppercase tracking-wider text-white/40">Cynthia La Regia · Junio 2026</p>
     </div>
